@@ -89,12 +89,14 @@ I'm gonna name mine `amor-fati` 💙
 
 For our constants and errors, we have the following code - 
 
-`;; constants
+```
+;; constants
 (define-constant ERR-NOT-AUTHORIZED u401)
 (define-constant ERR-ALL-MINTED u101)
 
 (define-constant CONTRACT-OWNER tx-sender)
-(define-constant ITEM-COUNT u10)`
+(define-constant ITEM-COUNT u10)
+```
 
 Let me explain this line-by-line 
 
