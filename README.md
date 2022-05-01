@@ -95,6 +95,7 @@ For our constants and errors, we have the following code -
 (define-constant ERR-ALL-MINTED u101)
 
 (define-constant CONTRACT-OWNER tx-sender)
+(define-constant CREATOR_WALLET 'ST25KXFMB3YQH4RSXPZKWDEZ0VWM49JTTKKAX462)
 (define-constant ITEM-COUNT u10)
 ```
 
