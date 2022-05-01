@@ -186,3 +186,24 @@ Let me explain this line-by-line
 (define-read-only (get-token-uri (id uint))
   (ok (some (var-get base-uri))))
   ```
+
+#### Local Deployment
+
+`(contract-call? .nft mint tx-sender)`
+
+`(contract-call? .nft  get-owner u1)`
+
+`(contract-call? .nft  stx-balance)`
+
+`(contract-call? .nft  stx-balance-of tx-sender)`
+
+`(contract-call? .nft  get-last-token-id)`
+
+Run the above commands under `clarinet console`
+
+#### Testnet Deployment
+
+https://explorer.stacks.co/sandbox/faucet?chain=testnet Get faucet tokens
+
+https://explorer.stacks.co/sandbox/deploy?chain=testnet Deploy on testnet
+
