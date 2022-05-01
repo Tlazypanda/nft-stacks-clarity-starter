@@ -101,11 +101,13 @@ Let me explain this line-by-line
 
 For our variables, we have the following code - 
 
-`;; variables
-(define-data-var token-counter uint u0)
-(define-data-var base-uri (string-ascii 256) "ipfs://QmS8Pf5SG9zhVA3zZ7qLChT6T1N1r7ZBeaYmGHg9vJ4ebQ/{id}")
-(define-data-var contract-uri (string-ascii 256) "ipfs://QmTN4THGXmYEA72ERVGZxWoLzabhjjM7dieSZ95tKri8t9")
-(define-data-var cost-per-mint uint u25000)`
+```
+;; variables  
+(define-data-var token-counter uint u0)  
+(define-data-var base-uri (string-ascii 256) "ipfs://QmYNWaCBi2XDudU427wjvUZfV2WDBDex7myNAk2L3VGNMb/{id}.json")  
+(define-data-var contract-uri (string-ascii 256) "ipfs://QmTN4THGXmYEA72ERVGZxWoLzabhjjM7dieSZ95tKri8t9")  
+(define-data-var cost-per-mint uint u250000)
+```
 
 Let me explain this line-by-line 
 
@@ -116,3 +118,62 @@ Let me explain this line-by-line
 
 ### Smart Contract Functions
 
+```
+;; Mint new NFT
+;; can only be called from the Mint
+
+(define-public (mint (recipient principal))
+  (let (
+    (count (var-get token-counter))
+  )
+    (asserts! (<= count ITEM-COUNT) (err ERR-ALL-MINTED))
+
+    (try! (mint-next recipient))
+    (ok true)
+  )
+)
+
+(define-private (mint-next (recipient principal))
+	(let
+		(
+			(token-id (+ (var-get token-counter) u1))
+		)
+		(try! (nft-mint? amor-fati token-id recipient))
+        (try! (stx-transfer? u250000 tx-sender CREATOR_WALLET))
+		(var-set token-counter token-id)
+		(ok token-id)
+	)
+)
+        
+(define-private (is-owner (index uint) (user principal))
+  (is-eq user (unwrap! (nft-get-owner? amor-fati index) false))
+)        
+        
+(define-public (transfer (index uint) (owner principal) (recipient principal))
+  (if (and (is-owner index owner) (is-owner index tx-sender))
+    (match (nft-transfer? amor-fati index owner recipient)
+      success (ok true)
+      error (err error)
+    )
+    (err ERR-NOT-AUTHORIZED)
+  )
+)
+
+(define-read-only (get-owner (index uint))
+  (ok (nft-get-owner? amor-fati index))
+)
+
+(define-read-only (stx-balance)
+  (stx-get-balance (as-contract tx-sender))
+)
+
+(define-read-only (stx-balance-of (address principal))
+  (stx-get-balance address)
+)
+
+(define-read-only (get-last-token-id)
+  (ok (var-get token-counter)))
+  
+(define-read-only (get-token-uri (id uint))
+  (ok (some (var-get base-uri))))
+  ```
