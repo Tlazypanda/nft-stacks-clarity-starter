@@ -24,6 +24,12 @@ Windows: copy the clarinet.exe binary to `C:\Windows\System32`. (A better soluti
 
 You can verify Clarinet is installed properly by running `clarinet --version` in your favourite Terminal emulator.
 
+### Visual Studio Code Extensions
+
+- Clarity for Visual Studio code
+- Rainbow brackets
+
+
 ## Coding Time ⏲️
 
 ### Create a new Project using Clarinet  
