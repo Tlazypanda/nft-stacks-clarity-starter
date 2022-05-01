@@ -207,3 +207,4 @@ https://explorer.stacks.co/sandbox/faucet?chain=testnet Get faucet tokens
 
 https://explorer.stacks.co/sandbox/deploy?chain=testnet Deploy on testnet
 
+Example deployed contract - https://explorer.stacks.co/txid/0x2737bc104acbe00e994094dd5a109bdb526ffb762210075307b455b587f1c697?chain=testnet
