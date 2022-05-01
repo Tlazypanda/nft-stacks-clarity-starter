@@ -71,8 +71,48 @@ Now go ahead and add this line to the top of your `nft.clar` file
 
 `(impl-trait .sip009-nft-trait.sip009-nft-trait)`
 
+### Name your collection
+
+Add this line to your `nft.clar` file by replacing `name-of-your-collection` with whatever you like, can be anything 😛
+I'm gonna name mine `amor-fati` 💙
+
+`(define-non-fungible-token name-of-your-collection uint)`
+
+
 ### Constants And Errors for NFT Smart Contract
 
+For our constants and errors, we have the following code - 
 
+`;; constants
+(define-constant ERR-NOT-AUTHORIZED u401)
+(define-constant ERR-ALL-MINTED u101)
 
+(define-constant CONTRACT-OWNER tx-sender)
+(define-constant ITEM-COUNT u10)`
+
+Let me explain this line-by-line 
+
+- The not-authorised error is important for us to prevent other parties from performing certain functions that only the token holder/contract owner can perform. For example - Setting the metadata can only be done by the contract owner. 
+- The all-minted error basically implies that all the assets of this collection have already been minted.
+- The CONTRACT-OWNER constant basically saves the tx-sender at time of deployment to be the contract owner. 
+- The ITEM-COUNT constant saves the item count to be 10 (unsigned integer) 
+
+### Variables
+
+For our variables, we have the following code - 
+
+`;; variables
+(define-data-var token-counter uint u0)
+(define-data-var base-uri (string-ascii 256) "ipfs://QmS8Pf5SG9zhVA3zZ7qLChT6T1N1r7ZBeaYmGHg9vJ4ebQ/{id}")
+(define-data-var contract-uri (string-ascii 256) "ipfs://QmTN4THGXmYEA72ERVGZxWoLzabhjjM7dieSZ95tKri8t9")
+(define-data-var cost-per-mint uint u25000)`
+
+Let me explain this line-by-line 
+
+- The token-counter just maintains a count of all the minted tokens so far.
+- The base uri points to json data of the particular nft data which can be stored on decentralised storage solutions such as IPFS.
+- The contract uri points to json data of the complete collection data which can be stored on decentralised storage solutions such as IPFS.
+- The cost-per-mint is basically just the amount you have to pay to mint.
+
+### Smart Contract Functions
 
